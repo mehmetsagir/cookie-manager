@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cookie Manager – Advanced</title>
+  <link rel="stylesheet" href="options.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- ===== HEADER ===== -->
+    <header class="header">
+      <div class="header-brand">
+        <img src="icons/icon32.png" alt="Cookie Manager" class="header-logo" />
+        <h1 class="header-title">Cookie Manager – Advanced</h1>
+      </div>
+      <button id="themeToggleBtn" class="icon-btn" title="Toggle dark mode" aria-label="Toggle dark mode">
+        <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- ===== TRANSFER SECTION ===== -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+        </svg>
+        Transfer Cookies Between Tabs
+      </h2>
+
+      <div class="transfer-grid">
+        <!-- Source -->
+        <div class="transfer-panel">
+          <label class="field-label" for="sourceTab">Source Tab</label>
+          <select id="sourceTab" class="select">
+            <option value="">Select source tab…</option>
+          </select>
+          <div class="cookie-list-header">
+            <span id="sourceCookieCount" class="badge">0 cookies</span>
+            <button id="sourceSelectAll" class="btn btn-ghost btn-sm">Select All</button>
+          </div>
+          <div id="sourceCookies" class="cookie-list" role="list" aria-label="Source cookies"></div>
+        </div>
+
+        <!-- Arrow -->
+        <div class="transfer-arrow-col" aria-hidden="true">
+          <svg class="transfer-arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="12 5 19 12 12 19"/>
+          </svg>
+        </div>
+
+        <!-- Target -->
+        <div class="transfer-panel">
+          <label class="field-label" for="targetTab">Target Tab</label>
+          <select id="targetTab" class="select">
+            <option value="">Select target tab…</option>
+          </select>
+          <div class="cookie-list-header">
+            <span id="targetCookieCount" class="badge">0 cookies</span>
+          </div>
+          <div id="targetCookies" class="cookie-list" role="list" aria-label="Target cookies"></div>
+        </div>
+      </div>
+
+      <!-- Transfer options -->
+      <div class="transfer-options">
+        <label class="checkbox-label">
+          <input type="checkbox" id="transferOverwrite" checked />
+          Overwrite existing cookies in target
+        </label>
+        <label class="checkbox-label">
+          <input type="checkbox" id="transferMoveMode" />
+          Move (delete from source after transfer)
+        </label>
+      </div>
+
+      <div class="transfer-actions">
+        <button id="transferSelectedBtn" class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+          </svg>
+          Transfer Selected
+        </button>
+        <button id="transferAllBtn" class="btn btn-secondary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/>
+            <polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/>
+          </svg>
+          Transfer All
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== IMPORT SECTION ===== -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Import Cookies
+      </h2>
+
+      <div class="import-form">
+        <div class="field">
+          <label class="field-label" for="importFormat">Format</label>
+          <select id="importFormat" class="select">
+            <option value="json">JSON</option>
+            <option value="netscape">Netscape (cookies.txt)</option>
+            <option value="pairs">Key=Value Pairs</option>
+          </select>
+        </div>
+        <div class="field">
+          <label class="field-label" for="targetDomain">Target Domain</label>
+          <input type="text" id="targetDomain" class="input" placeholder="e.g. example.com" />
+        </div>
+        <div class="field">
+          <label class="field-label" for="importData">Cookie Data</label>
+          <textarea id="importData" class="textarea" rows="8" placeholder="Paste cookie data here…"></textarea>
+        </div>
+        <button id="importBtn" class="btn btn-primary">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          Import Cookies
+        </button>
+      </div>
+    </section>
+
+    <!-- ===== BULK OPERATIONS ===== -->
+    <section class="section">
+      <h2 class="section-title">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/>
+          <rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+        </svg>
+        Bulk Operations
+      </h2>
+
+      <div class="bulk-grid">
+        <div class="field">
+          <label class="field-label" for="bulkDomainSelect">Select Domain</label>
+          <select id="bulkDomainSelect" class="select">
+            <option value="">Choose a domain…</option>
+          </select>
+        </div>
+        <div class="bulk-actions">
+          <button id="bulkExportBtn" class="btn btn-secondary">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+            </svg>
+            Export Domain Cookies
+          </button>
+          <button id="bulkDeleteBtn" class="btn btn-danger">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+              <path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/>
+            </svg>
+            Delete Domain Cookies
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== STATUS BAR ===== -->
+    <div id="statusBar" class="status-bar" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="utils/exportFormats.js"></script>
+  <script src="options.js"></script>
+</body>
+</html>
